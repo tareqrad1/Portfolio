@@ -15,7 +15,6 @@ const ALL_TARGETS = [
   '.hero-tagline',
   '.hero-cta',
   '.hero-social',
-  '.hero-handle',
   '.hero-scroll-ind',
   '.hero-portrait-wrapper',
   '.hero-float',
@@ -59,7 +58,6 @@ export function useHeroGSAP(scopeRef: RefObject<HTMLElement>) {
       gsap.set('.hero-tagline', { autoAlpha: 0, y: 18 })
       gsap.set('.hero-cta', { autoAlpha: 0, y: 20 })
       gsap.set('.hero-social', { autoAlpha: 0, y: 10 })
-      gsap.set('.hero-handle', { autoAlpha: 0, y: 10 })
       gsap.set('.hero-scroll-ind', { autoAlpha: 0 })
       gsap.set('.hero-portrait-wrapper', {
         autoAlpha: 0,
@@ -131,11 +129,6 @@ export function useHeroGSAP(scopeRef: RefObject<HTMLElement>) {
           '.hero-social',
           { autoAlpha: 1, y: 0, duration: 0.4, stagger: 0.06 },
           1.25
-        )
-        .to(
-          '.hero-handle',
-          { autoAlpha: 1, y: 0, duration: 0.45, stagger: 0.1 },
-          1.3
         )
         .to('.hero-float', { autoAlpha: 1, duration: 0.8 }, 1.35)
         .to('.hero-scroll-ind', { autoAlpha: 1, duration: 0.6 }, 1.45)

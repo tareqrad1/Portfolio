@@ -10,9 +10,8 @@ import HeroWordmark from './HeroWordmark'
 import HeroBigWord from './HeroBigWord'
 import HeroPortrait from './HeroPortrait'
 import HeroRoleTags from './HeroRoleTags'
-import HeroHandles from './HeroHandles'
 import HeroCTA from './HeroCTA'
-import HeroSocials from './HeroSocials'
+import HeroSocialLinks from './HeroSocialLinks'
 import HeroScrollIndicator from './HeroScrollIndicator'
 import HeroFloatingElements from './HeroFloatingElements'
 
@@ -34,30 +33,29 @@ export default function HeroSection() {
       {/* 2. Navbar */}
       <HeroNavbar />
 
-      {/* 3. Stage — the magazine cover composition */}
+      {/* 3. Stage */}
       <div className="relative z-[20] mx-auto min-h-screen w-full max-w-7xl px-6 pt-[60px] md:px-12">
-        {/* 3a. Top wordmark (name) — sits behind the portrait */}
+
+        {/* 3a. Top wordmark — sits behind the portrait */}
         <HeroWordmark />
 
-        {/* 3b. Centered portrait. On desktop it's nudged right so the left
-                column has a clear lane for the text. */}
-        <div className="relative z-[15] flex min-h-screen items-center justify-center pb-[28vh] pt-[16vh] md:justify-end md:pb-24 md:pt-20 md:pr-[6%] lg:pr-[10%]">
+        {/* 3b. Portrait — nudged right on desktop to open left lane */}
+        <div className="relative z-[15] flex min-h-screen items-center justify-center pb-[26vh] pt-[16vh] md:justify-end md:pb-24 md:pt-20 md:pr-[6%] lg:pr-[10%]">
           <HeroPortrait />
         </div>
 
-        {/* 3c. Big right-edge display word */}
+        {/* 3c. Big display word — bottom right */}
         <HeroBigWord />
 
-        {/* 3d. Left role tags — upper-left on desktop (clear of the photo);
-                hidden on small screens where the compact pills are shown. */}
+        {/* 3d. Role tags — desktop left column only */}
         <div className="pointer-events-none absolute left-6 top-[24%] z-[25] hidden md:left-12 md:block">
           <HeroRoleTags />
         </div>
 
-        {/* 3e. Lower-left content block: tagline → CTA → socials.
-                Has its own soft backdrop so it's always legible over the photo. */}
-        <div className="absolute bottom-[17%] left-6 right-6 z-[30] flex flex-col gap-4 md:bottom-[14%] md:right-auto md:max-w-[400px] md:left-12">
-          {/* Compact stack tags — mobile only */}
+        {/* 3e. Bottom-left content block — tagline + CTAs + socials */}
+        <div className="absolute bottom-[14%] left-6 right-6 z-[30] flex flex-col gap-4 md:bottom-[12%] md:left-12 md:right-auto md:max-w-[380px]">
+
+          {/* Mobile role pills */}
           <div className="flex flex-wrap gap-2 md:hidden">
             {heroData.roleTags.map((tag, i) => (
               <span
@@ -65,7 +63,7 @@ export default function HeroSection() {
                 className={`hero-roletag rounded-full border px-3 py-1 font-mono text-[11px] font-medium uppercase tracking-wide ${
                   i === 0
                     ? 'border-accent-red/40 bg-accent-red/10 text-accent-red'
-                    : 'border-paper-line bg-white/40 text-ink-soft'
+                    : 'border-paper-line bg-white/50 text-ink-soft'
                 }`}
               >
                 {tag}
@@ -73,27 +71,25 @@ export default function HeroSection() {
             ))}
           </div>
 
-          <p className="hero-tagline max-w-[32ch] font-display text-lg font-semibold leading-snug text-ink md:text-xl">
+          {/* Tagline */}
+          <p className="hero-tagline max-w-[30ch] font-display text-lg font-semibold leading-snug text-ink md:text-xl">
             {heroData.tagline}
           </p>
-          <div className="flex flex-col gap-3">
-            <HeroCTA />
-            <HeroSocials />
-          </div>
-        </div>
 
-        {/* 3f. Bottom-left handles (magazine footer) */}
-        <div className="absolute bottom-6 left-6 z-[30] md:left-12">
-          <HeroHandles />
+          {/* CTAs */}
+          <HeroCTA />
+
+          {/* Social links — icon + handle, unified, no duplication */}
+          <HeroSocialLinks />
         </div>
       </div>
 
-      {/* 4. Scroll indicator (desktop only — bottom-right, clear of the word) */}
+      {/* 4. Scroll indicator */}
       <div className="absolute bottom-6 right-8 z-[30] hidden lg:block">
         <HeroScrollIndicator />
       </div>
 
-      {/* 5. Floating accents (desktop) */}
+      {/* 5. Floating accents */}
       <div className="pointer-events-none absolute inset-0 z-[18] hidden lg:block">
         <HeroFloatingElements />
       </div>
