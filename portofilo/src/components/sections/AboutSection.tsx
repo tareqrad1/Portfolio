@@ -68,22 +68,6 @@ export default function AboutSection() {
             <p className="about-summary max-w-[52ch] font-body text-base leading-relaxed text-ink-soft md:text-lg">
               {portfolioData.about.summary}
             </p>
-
-            {/* Quick contact strip */}
-            <div className="flex flex-wrap gap-x-8 gap-y-3 border-t border-paper-line pt-6">
-              <a
-                href={`mailto:${portfolioData.about.email}`}
-                className="font-mono text-xs text-ink-soft transition-colors hover:text-accent-red"
-              >
-                {portfolioData.about.email}
-              </a>
-              <a
-                href={`tel:${portfolioData.about.phone}`}
-                className="font-mono text-xs text-ink-soft transition-colors hover:text-accent-red"
-              >
-                {portfolioData.about.phone}
-              </a>
-            </div>
           </div>
 
           {/* Right — skills grid */}

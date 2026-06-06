@@ -24,15 +24,6 @@ export default function HeroPortrait() {
           className="object-cover object-top"
           style={{ objectPosition: 'center top' }}
         />
-
-        {/* Soft bottom fade so the photo blends into the cream page */}
-        <div
-          className="pointer-events-none absolute bottom-0 left-0 right-0 h-[35%]"
-          style={{
-            background:
-              'linear-gradient(to top, #F5F1EC 0%, rgba(245,241,236,0.5) 50%, transparent 100%)',
-          }}
-        />
       </div>
 
       {/* Thin accent frame */}

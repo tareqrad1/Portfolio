@@ -14,7 +14,6 @@ const SOCIALS = [
   { href: 'https://github.com/tareqrad1', Icon: Github, label: 'GitHub' },
   { href: 'https://linkedin.com/in/tareqradi', Icon: Linkedin, label: 'LinkedIn' },
   { href: 'https://instagram.com/tareq.radi', Icon: Instagram, label: 'Instagram' },
-  { href: `mailto:${portfolioData.about.email}`, Icon: Mail, label: 'Email' },
 ]
 
 export default function Footer() {

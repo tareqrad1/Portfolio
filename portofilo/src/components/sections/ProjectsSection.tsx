@@ -3,7 +3,7 @@
 import { useEffect, useRef, useState } from 'react'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
-import { ArrowUpRight, Star } from 'lucide-react'
+import { ArrowUpRight } from 'lucide-react'
 import { portfolioData } from '@/lib/portfolio-data'
 import ProjectModal from './ProjectModal'
 
@@ -42,9 +42,6 @@ export default function ProjectsSection() {
     return () => ctx.revert()
   }, [])
 
-  const featured  = portfolioData.projects.filter((p) => p.featured)
-  const secondary = portfolioData.projects.filter((p) => !p.featured)
-
   return (
     <section
       id="work"
@@ -70,25 +67,12 @@ export default function ProjectsSection() {
           </h2>
         </div>
 
-        {/* Featured — large cards */}
-        <div className="proj-grid mb-6 grid grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-3">
-          {featured.map((project) => (
+        {/* Compact cards — details live in the modal */}
+        <div className="proj-grid grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          {portfolioData.projects.map((project) => (
             <ProjectCard
               key={project.name}
               project={project}
-              large
-              onOpen={() => setActiveProject(project)}
-            />
-          ))}
-        </div>
-
-        {/* Secondary — compact cards */}
-        <div className="grid grid-cols-1 gap-5 md:grid-cols-3">
-          {secondary.map((project) => (
-            <ProjectCard
-              key={project.name}
-              project={project}
-              large={false}
               onOpen={() => setActiveProject(project)}
             />
           ))}
@@ -102,11 +86,9 @@ export default function ProjectsSection() {
 
 function ProjectCard({
   project,
-  large,
   onOpen,
 }: {
   project: Project
-  large: boolean
   onOpen: () => void
 }) {
   return (
@@ -114,85 +96,39 @@ function ProjectCard({
       type="button"
       onClick={onOpen}
       aria-label={`View details for ${project.name}`}
-      className="proj-card group flex flex-col justify-between overflow-hidden rounded-2xl border border-paper-line bg-white/70 text-left backdrop-blur-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_16px_48px_-12px_rgba(194,54,47,0.18)]"
+      className="proj-card group relative flex flex-col justify-between gap-6 overflow-hidden rounded-2xl border border-paper-line bg-white/70 p-5 text-left backdrop-blur-sm transition-all duration-300 hover:-translate-y-1 hover:border-accent-red/30 hover:shadow-[0_16px_48px_-12px_rgba(194,54,47,0.18)]"
     >
-      {/* Top bar with gradient */}
-      <div
-        className="h-1.5 w-full bg-gradient-to-r from-accent-red via-accent-deep to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100"
-      />
+      {/* Top accent bar (reveals on hover) */}
+      <div className="absolute left-0 top-0 h-1 w-full bg-gradient-to-r from-accent-red via-accent-deep to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
 
-      <div className={`flex flex-col gap-4 p-6 ${large ? 'md:p-7' : ''}`}>
-        {/* Tag + arrow */}
-        <div className="flex items-center justify-between">
-          <span
-            className={`rounded-full border px-2.5 py-0.5 font-mono text-[10px] uppercase tracking-wide ${
-              TAG_COLORS[project.tag] ?? 'bg-ink/8 text-ink-soft border-paper-line'
-            }`}
-          >
-            {project.tag}
-          </span>
-          <ArrowUpRight
-            size={16}
-            className="text-ink-faint transition-all duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:text-accent-red"
-          />
-        </div>
+      {/* Tag */}
+      <span
+        className={`w-fit rounded-full border px-2.5 py-0.5 font-mono text-[10px] uppercase tracking-wide ${
+          TAG_COLORS[project.tag] ?? 'bg-ink/8 text-ink-soft border-paper-line'
+        }`}
+      >
+        {project.tag}
+      </span>
 
-        {/* Title */}
-        <div>
-          <h3
-            className={`font-display font-bold text-ink ${
-              large ? 'text-xl md:text-2xl' : 'text-lg'
-            }`}
-          >
-            {project.name}
-          </h3>
-          <p className="mt-0.5 font-body text-sm text-ink-soft/70">
-            {project.subtitle}
-          </p>
-        </div>
-
-        {/* Description */}
-        <p className="font-body text-sm leading-relaxed text-ink-soft">
-          {project.description}
+      {/* Title + subtitle */}
+      <div>
+        <h3 className="font-display text-lg font-bold leading-tight text-ink transition-colors duration-300 group-hover:text-accent-red">
+          {project.name}
+        </h3>
+        <p className="mt-1 font-body text-sm text-ink-soft/70">
+          {project.subtitle}
         </p>
+      </div>
 
-        {/* Highlights */}
-        {large && (
-          <ul className="flex flex-col gap-1.5">
-            {project.highlights.map((h) => (
-              <li key={h} className="flex items-start gap-2">
-                <Star
-                  size={10}
-                  className="mt-1.5 shrink-0 fill-accent-red text-accent-red"
-                />
-                <span className="font-body text-xs leading-relaxed text-ink-soft">
-                  {h}
-                </span>
-              </li>
-            ))}
-          </ul>
-        )}
-
-        {/* Tech stack */}
-        <div className="flex flex-wrap gap-1.5 border-t border-paper-line pt-4">
-          {project.tech.map((t) => (
-            <span
-              key={t}
-              className="rounded-full bg-paper-soft px-2.5 py-1 font-mono text-[10px] text-ink-soft"
-            >
-              {t}
-            </span>
-          ))}
-        </div>
-
-        {/* View details affordance */}
-        <span className="mt-1 inline-flex items-center gap-1.5 font-mono text-[11px] uppercase tracking-wide text-ink-faint transition-colors duration-300 group-hover:text-accent-red">
+      {/* View details footer */}
+      <div className="flex items-center justify-between border-t border-paper-line pt-4">
+        <span className="font-mono text-[11px] uppercase tracking-wide text-ink-faint transition-colors duration-300 group-hover:text-accent-red">
           View details
-          <ArrowUpRight
-            size={13}
-            className="transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
-          />
         </span>
+        <ArrowUpRight
+          size={16}
+          className="text-ink-faint transition-all duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:text-accent-red"
+        />
       </div>
     </button>
   )
