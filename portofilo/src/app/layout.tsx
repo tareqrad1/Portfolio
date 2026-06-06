@@ -27,9 +27,11 @@ const jetbrainsMono = JetBrains_Mono({
 })
 
 export const metadata: Metadata = {
-  title: 'Your Name — Full-Stack Developer',
+  title: 'Tareq Radi — Full-Stack Developer',
   description:
-    'Full-Stack Developer — I build fast, scalable web products end to end with React, Next.js, Node and Express.',
+    'Tareq Radi — Full-Stack Developer. I build fast, scalable web products end to end with React, Next.js, Node and Express.',
+  authors: [{ name: 'Tareq Radi' }],
+  creator: 'Tareq Radi',
 }
 
 export default function RootLayout({

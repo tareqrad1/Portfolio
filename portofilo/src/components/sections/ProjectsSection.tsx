@@ -1,12 +1,15 @@
 'use client'
 
-import { useEffect, useRef } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { ArrowUpRight, Star } from 'lucide-react'
 import { portfolioData } from '@/lib/portfolio-data'
+import ProjectModal from './ProjectModal'
 
 gsap.registerPlugin(ScrollTrigger)
+
+type Project = (typeof portfolioData.projects)[number]
 
 const TAG_COLORS: Record<string, string> = {
   'Graduation Project': 'bg-accent-red/10 text-accent-red border-accent-red/25',
@@ -17,6 +20,7 @@ const TAG_COLORS: Record<string, string> = {
 
 export default function ProjectsSection() {
   const sectionRef = useRef<HTMLElement>(null)
+  const [activeProject, setActiveProject] = useState<Project | null>(null)
 
   useEffect(() => {
     const ctx = gsap.context(() => {
@@ -69,17 +73,29 @@ export default function ProjectsSection() {
         {/* Featured — large cards */}
         <div className="proj-grid mb-6 grid grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-3">
           {featured.map((project) => (
-            <ProjectCard key={project.name} project={project} large />
+            <ProjectCard
+              key={project.name}
+              project={project}
+              large
+              onOpen={() => setActiveProject(project)}
+            />
           ))}
         </div>
 
         {/* Secondary — compact cards */}
         <div className="grid grid-cols-1 gap-5 md:grid-cols-3">
           {secondary.map((project) => (
-            <ProjectCard key={project.name} project={project} large={false} />
+            <ProjectCard
+              key={project.name}
+              project={project}
+              large={false}
+              onOpen={() => setActiveProject(project)}
+            />
           ))}
         </div>
       </div>
+
+      <ProjectModal project={activeProject} onClose={() => setActiveProject(null)} />
     </section>
   )
 }
@@ -87,16 +103,18 @@ export default function ProjectsSection() {
 function ProjectCard({
   project,
   large,
+  onOpen,
 }: {
-  project: (typeof portfolioData.projects)[number]
+  project: Project
   large: boolean
+  onOpen: () => void
 }) {
   return (
-    <a
-      href={project.href}
-      target="_blank"
-      rel="noopener noreferrer"
-      className="proj-card group flex flex-col justify-between overflow-hidden rounded-2xl border border-paper-line bg-white/70 backdrop-blur-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_16px_48px_-12px_rgba(194,54,47,0.18)]"
+    <button
+      type="button"
+      onClick={onOpen}
+      aria-label={`View details for ${project.name}`}
+      className="proj-card group flex flex-col justify-between overflow-hidden rounded-2xl border border-paper-line bg-white/70 text-left backdrop-blur-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_16px_48px_-12px_rgba(194,54,47,0.18)]"
     >
       {/* Top bar with gradient */}
       <div
@@ -166,7 +184,16 @@ function ProjectCard({
             </span>
           ))}
         </div>
+
+        {/* View details affordance */}
+        <span className="mt-1 inline-flex items-center gap-1.5 font-mono text-[11px] uppercase tracking-wide text-ink-faint transition-colors duration-300 group-hover:text-accent-red">
+          View details
+          <ArrowUpRight
+            size={13}
+            className="transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
+          />
+        </span>
       </div>
-    </a>
+    </button>
   )
 }

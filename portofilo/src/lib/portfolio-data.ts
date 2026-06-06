@@ -96,7 +96,7 @@ export const portfolioData = {
         'Secure & scalable full-stack architecture',
         'Fully responsive across all devices',
       ],
-      href: '#',
+      href: 'https://scholar-hub-one.vercel.app/',
       featured: true,
     },
     {
@@ -112,7 +112,7 @@ export const portfolioData = {
         'Functional cart with smooth micro-interactions',
         'Premium luxury minimal UI/UX',
       ],
-      href: '#',
+      href: 'https://matcha-self-three.vercel.app/',
       featured: true,
     },
     {
@@ -128,7 +128,7 @@ export const portfolioData = {
         'Advanced cart with animated UX patterns',
         'Performance-optimized with lazy loading & frame caching',
       ],
-      href: '#',
+      href: 'https://cinematic-headphone.vercel.app/',
       featured: true,
     },
     {
