@@ -63,7 +63,6 @@ export function useHeroGSAP(scopeRef: RefObject<HTMLElement>) {
         autoAlpha: 0,
         scale: 1.06,
         yPercent: 4,
-        filter: 'blur(12px)',
       })
       gsap.set('.hero-float', { autoAlpha: 0 })
       gsap.set('.hero-glow', { autoAlpha: 0 })
@@ -79,14 +78,13 @@ export function useHeroGSAP(scopeRef: RefObject<HTMLElement>) {
         0
       )
         .to('.hero-navbar', { autoAlpha: 1, y: 0, duration: 0.7 }, 0.1)
-        // Portrait rises + sharpens — anchors the composition
+        // Portrait rises — anchors the composition
         .to(
           '.hero-portrait-wrapper',
           {
             autoAlpha: 1,
             scale: 1,
             yPercent: 0,
-            filter: 'blur(0px)',
             duration: 1.5,
             ease: 'expo.out',
           },

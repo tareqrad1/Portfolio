@@ -58,6 +58,22 @@ export default function Footer() {
               <Mail size={15} className="text-accent-red" />
               {portfolioData.about.email}
             </a>
+
+            {/* Back-to-top */}
+            <div className="mt-7">
+              <button
+                type="button"
+                onClick={scrollTop}
+                aria-label="Back to top"
+                className="group flex items-center gap-2 rounded-full border border-white/10 bg-white/[0.03] px-4 py-2 font-mono text-[11px] uppercase tracking-wider text-white/50 transition-all duration-200 hover:border-accent-red/40 hover:text-accent-red"
+              >
+                Top
+                <ArrowUp
+                  size={13}
+                  className="transition-transform duration-200 group-hover:-translate-y-0.5"
+                />
+              </button>
+            </div>
           </div>
 
           {/* Navigate */}
@@ -101,25 +117,6 @@ export default function Footer() {
               ))}
             </div>
           </div>
-        </div>
-
-        {/* Divider */}
-        <div className="my-10 h-px w-full bg-white/[0.07]" />
-
-        {/* Back-to-top */}
-        <div className="flex justify-center sm:justify-end">
-          <button
-            type="button"
-            onClick={scrollTop}
-            aria-label="Back to top"
-            className="group flex items-center gap-2 rounded-full border border-white/10 bg-white/[0.03] px-4 py-2 font-mono text-[11px] uppercase tracking-wider text-white/50 transition-all duration-200 hover:border-accent-red/40 hover:text-accent-red"
-          >
-            Top
-            <ArrowUp
-              size={13}
-              className="transition-transform duration-200 group-hover:-translate-y-0.5"
-            />
-          </button>
         </div>
       </div>
     </footer>
